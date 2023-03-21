@@ -1,0 +1,46 @@
+version: '1'
+
+services:
+
+  mysql-development:
+    image: mysql
+    environment:
+      MYSQL_USER: suthan
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: Suthan123
+      MYSQL_DATABASE: tablb
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - "3306:3306"
+    networks: 
+      - mynetwork 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 1s
+      retries: 3
+
+  backend-service:
+   build: 
+    context: ./
+    dockerfile: ./Dockerfile
+   ports:
+      - "3001:3001"
+   depends_on:
+    mysql-development:
+     condition: service_healthy
+   networks:
+      - mynetwork   
+
+  frontend-service:
+   build: 
+    context: ../url-shortner/
+    dockerfile: ../url-shortner/Dockerfile
+   ports:
+      - "3000:3000"
+   depends_on:
+      - backend-service
+
+networks:
+  mynetwork:
+       
