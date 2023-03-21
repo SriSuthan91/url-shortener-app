@@ -8,9 +8,7 @@ You should install docker on your machine [https://docs.docker.com/engine/instal
 
 1. Clone the project:
 
- Frontend - git clone https://github.com/SriSuthan91/url-shortner.git 
-
- Backend - git clone https://github.com/SriSuthan91/backend.git
+git clone https://github.com/SriSuthan91/url-shortener-app.git 
  
 
 2. locate the backend and run docker commands
